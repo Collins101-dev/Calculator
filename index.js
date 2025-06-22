@@ -138,4 +138,58 @@ function operate(a, b, operator) {
     }
 }
 
-// TO ADD KEYBOARD USAGE
+// added keyboard usage
+
+document.addEventListener("keydown", handleKeyboardInput);
+function handleKeyboardInput(e) {
+    const key = e.key;
+
+    if (!isNaN(key)) {
+        // Number keys
+        appendDigit(key);
+    } else if (key === ".") {
+        decimalButton.click();
+    } else if (["+", "-", "*", "/"].includes(key)) {
+        setOperator(key);
+    } else if (key === "Enter" || key === "=") {
+        equalButton.click();
+    } else if (key === "Backspace") {
+        backspace();
+    } else if (key.toLowerCase() === "c") {
+        clearButton.click();
+    }
+}
+
+function appendDigit(digit) {
+    if (resetNextInput) {
+        currentInput = "";
+        resetNextInput = false;
+    }
+    if (currentInput === "0") currentInput = "";
+    currentInput += digit;
+    updateDisplay();
+}
+
+function setOperator(op) {
+    if (currentInput === "") return;
+
+    const inputNum = parseFloat(currentInput);
+
+    if (firstOperand === null) {
+        firstOperand = inputNum;
+    } else if (!resetNextInput) {
+        firstOperand = operate(firstOperand, inputNum, currentOperator);
+    }
+
+    currentOperator = op;
+    currentInput = "";
+    resetNextInput = true;
+
+    updateDisplay();
+}
+
+function backspace() {
+    if (resetNextInput) return;
+    currentInput = currentInput.slice(0, -1);
+    updateDisplay();
+}
