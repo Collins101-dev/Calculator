@@ -19,6 +19,10 @@ Check out the live demo or clone the repository to run locally.
 ### Prerequisites
 
 - Modern web browser (Chrome, Firefox, Edge, etc.)
+  
+### Live Demo
+
+- [Try the Calculator Live](https://collins101-dev.github.io/Calculator/)
 
 ### Installation
 
